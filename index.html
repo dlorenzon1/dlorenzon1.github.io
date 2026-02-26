@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrustHive — Honest Reviews, Real People</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --bg:#f4f1eb;--bg2:#ffffff;--bg3:#faf9f7;--text:#1a1a2e;--text2:#555;
+  --accent:#e8572a;--accent2:#ff7b54;--accent3:#f0a500;--border:#e0ddd7;
+  --card-shadow:0 2px 20px rgba(0,0,0,0.06);
+  --hero-gradient:linear-gradient(135deg,#1a1a2e 0%,#2d1b4e 50%,#e8572a 100%);
+  --tag-bg:#fef0ec;--tag-text:#e8572a;--star:#f0a500;
+  --trust-bar:linear-gradient(90deg,#e8572a,#f0a500);
+  --nav-bg:rgba(255,255,255,0.85);--section-alt:#faf8f5;
+  --badge-bg:#e8572a;--badge-text:#fff;--input-bg:#fff;
+  --footer-bg:#1a1a2e;--glow:rgba(232,87,42,0.15);
+  --video-bg:#000;--modal-bg:rgba(0,0,0,0.8);
+  --success:#22c55e;--success-bg:#f0fdf4;
+}
+[data-theme="dark"] {
+  --bg:#0d0d1a;--bg2:#161625;--bg3:#1c1c30;--text:#e8e6e1;--text2:#9a98a6;
+  --accent:#ff6b3d;--accent2:#ff9a6c;--accent3:#ffc857;--border:#2a2a40;
+  --card-shadow:0 2px 24px rgba(0,0,0,0.3);
+  --hero-gradient:linear-gradient(135deg,#0d0d1a 0%,#1a0a30 50%,#3d1510 100%);
+  --tag-bg:rgba(255,107,61,0.12);--tag-text:#ff9a6c;--star:#ffc857;
+  --trust-bar:linear-gradient(90deg,#ff6b3d,#ffc857);
+  --nav-bg:rgba(13,13,26,0.9);--section-alt:#111122;
+  --badge-bg:#ff6b3d;--badge-text:#fff;--input-bg:#1c1c30;
+  --footer-bg:#08081a;--glow:rgba(255,107,61,0.08);
+  --video-bg:#111;--modal-bg:rgba(0,0,0,0.9);
+  --success:#4ade80;--success-bg:rgba(34,197,94,0.1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);transition:background 0.4s,color 0.4s;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;border:none;font-family:inherit}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:var(--nav-bg);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:background 0.4s,border 0.4s}
+.nav-inner{max-width:1280px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:64px}
+.nav-logo{font-weight:800;font-size:1.35rem;letter-spacing:-0.5px;display:flex;align-items:center;gap:8px;cursor:pointer}
+.nav-logo svg{width:28px;height:28px}
+.nav-links{display:flex;gap:6px;align-items:center}
+.nav-links a,.nav-links button{padding:8px 16px;border-radius:10px;font-size:.88rem;font-weight:500;color:var(--text2);background:transparent;transition:all 0.25s}
+.nav-links a:hover,.nav-links button:hover,.nav-links a.active{background:var(--glow);color:var(--accent)}
+.nav-links .apply-nav{background:var(--accent);color:#fff;font-weight:600}
+.nav-links .apply-nav:hover{background:var(--accent2);color:#fff}
+.theme-toggle{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--bg3);border:1px solid var(--border);font-size:1.1rem;transition:all 0.3s}
+.theme-toggle:hover{transform:rotate(30deg)}
+.hamburger{display:none;width:38px;height:38px;border-radius:10px;background:var(--bg3);border:1px solid var(--border);flex-direction:column;align-items:center;justify-content:center;gap:5px}
+.hamburger span{width:18px;height:2px;background:var(--text);border-radius:2px;transition:0.3s}
+
+.mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;bottom:0;background:var(--bg);z-index:999;padding:24px;flex-direction:column;gap:8px;overflow-y:auto}
+.mobile-menu.open{display:flex}
+.mobile-menu a,.mobile-menu button{padding:14px 20px;border-radius:12px;font-size:1rem;font-weight:500;color:var(--text);background:var(--bg2);border:1px solid var(--border);text-align:left;width:100%}
+.mobile-menu .apply-mobile{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+section{padding:100px 24px}
+.container{max-width:1200px;margin:auto}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;background:var(--hero-gradient);position:relative;overflow:hidden;padding-top:64px}
+.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 70% 30%,rgba(255,255,255,0.05) 0%,transparent 60%)}
+.hero-inner{max-width:1200px;margin:auto;position:relative;z-index:2;width:100%}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.15);padding:8px 18px;border-radius:50px;font-size:.82rem;color:rgba(255,255,255,0.9);margin-bottom:28px}
+.hero-badge span{width:8px;height:8px;border-radius:50%;background:#4ade80;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.hero h1{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:900;line-height:1.08;color:#fff;max-width:750px;letter-spacing:-1.5px;margin-bottom:24px}
+.hero h1 em{font-style:normal;color:var(--accent2)}
+.hero p{font-size:1.15rem;color:rgba(255,255,255,0.7);max-width:540px;line-height:1.7;margin-bottom:36px}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn-primary{padding:14px 32px;border-radius:14px;font-weight:600;font-size:.95rem;background:var(--accent);color:#fff;transition:all 0.3s;box-shadow:0 4px 20px rgba(232,87,42,0.35)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(232,87,42,0.45)}
+.btn-secondary{padding:14px 32px;border-radius:14px;font-weight:600;font-size:.95rem;background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.2);transition:all 0.3s}
+.btn-secondary:hover{background:rgba(255,255,255,0.15)}
+.hero-stats{display:flex;gap:48px;margin-top:64px;padding-top:40px;border-top:1px solid rgba(255,255,255,0.1)}
+.hero-stat h3{font-size:2rem;font-weight:800;color:#fff}
+.hero-stat p{font-size:.82rem;color:rgba(255,255,255,0.5);margin-top:4px}
+.floating-cards{position:absolute;right:0;top:50%;transform:translateY(-50%);width:380px;height:400px;display:none}
+@media(min-width:1024px){.floating-cards{display:block}}
+.float-card{position:absolute;background:rgba(255,255,255,0.07);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:16px;animation:float 6s ease-in-out infinite}
+.float-card:nth-child(1){top:0;right:0;animation-delay:0s}
+.float-card:nth-child(2){top:120px;right:80px;animation-delay:2s}
+.float-card:nth-child(3){top:250px;right:20px;animation-delay:4s}
+.float-card .fc-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.float-card .fc-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.float-card .fc-name{font-size:.8rem;color:#fff;font-weight:600}
+.float-card .fc-handle{font-size:.7rem;color:rgba(255,255,255,0.5)}
+.float-card .fc-stars{color:var(--star);font-size:.75rem}
+.float-card .fc-text{font-size:.75rem;color:rgba(255,255,255,0.7);line-height:1.5}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+.section-tag{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:14px}
+.section-tag::before{content:'';width:24px;height:2px;background:var(--accent);border-radius:2px}
+.section-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;letter-spacing:-.8px;line-height:1.15;margin-bottom:16px}
+.section-desc{font-size:1.05rem;color:var(--text2);max-width:600px;line-height:1.7}
+
+/* PRODUCT CARDS */
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px}
+.product-card{background:var(--bg2);border-radius:20px;overflow:hidden;border:1px solid var(--border);transition:all 0.35s;box-shadow:var(--card-shadow)}
+.product-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.1)}
+.pc-image{height:200px;display:flex;align-items:center;justify-content:center;font-size:4rem;position:relative}
+.pc-badge{position:absolute;top:14px;left:14px;background:var(--badge-bg);color:var(--badge-text);padding:4px 12px;border-radius:8px;font-size:.72rem;font-weight:600}
+.pc-age-badge{position:absolute;top:14px;right:14px;background:rgba(0,0,0,0.5);backdrop-filter:blur(8px);color:#fff;padding:4px 10px;border-radius:8px;font-size:.7rem;font-weight:500}
+.pc-body{padding:20px}
+.pc-category{font-size:.72rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.pc-title{font-size:1.1rem;font-weight:700;margin-bottom:6px}
+.pc-price{font-size:1.2rem;font-weight:800;color:var(--accent);margin-bottom:12px}
+.pc-rating{display:flex;align-items:center;gap:8px;margin-bottom:16px}
+.pc-stars{color:var(--star);font-size:.85rem}
+.pc-rating span{font-size:.82rem;color:var(--text2)}
+.trust-meter{margin-bottom:16px}
+.trust-meter-label{display:flex;justify-content:space-between;font-size:.75rem;color:var(--text2);margin-bottom:6px}
+.trust-bar-bg{height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.trust-bar-fill{height:100%;background:var(--trust-bar);border-radius:3px;transition:width 1s ease}
+
+/* VIDEO THUMBNAILS */
+.pc-videos{display:flex;gap:8px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px}
+.pc-video-thumb{flex-shrink:0;width:110px;height:68px;border-radius:10px;background:var(--video-bg);display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer;overflow:hidden;border:1px solid var(--border);transition:all 0.25s}
+.pc-video-thumb:hover{transform:scale(1.04);border-color:var(--accent)}
+.pc-video-thumb .vt-emoji{font-size:1.6rem;opacity:0.7}
+.pc-video-thumb .vt-play{position:absolute;width:28px;height:28px;border-radius:50%;background:rgba(232,87,42,0.9);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.7rem;box-shadow:0 2px 8px rgba(0,0,0,0.3)}
+.pc-video-thumb .vt-label{position:absolute;bottom:4px;left:6px;font-size:.55rem;color:#fff;background:rgba(0,0,0,0.6);padding:1px 6px;border-radius:4px;font-weight:500}
+.pc-video-thumb .vt-dur{position:absolute;bottom:4px;right:6px;font-size:.55rem;color:#fff;background:rgba(0,0,0,0.7);padding:1px 5px;border-radius:4px}
+
+/* RETAIL LINKS */
+.pc-retailers{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.retail-link{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:8px;font-size:.72rem;font-weight:600;border:1px solid var(--border);background:var(--bg3);color:var(--text);transition:all 0.25s}
+.retail-link:hover{border-color:var(--accent);color:var(--accent);background:var(--tag-bg)}
+.retail-link .rl-icon{font-size:.85rem}
+
+.pc-review{background:var(--bg3);border-radius:12px;padding:14px;border:1px solid var(--border)}
+.pc-review-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.pc-review-avatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+.pc-review-name{font-size:.82rem;font-weight:600}
+.pc-review-handle{font-size:.72rem;color:var(--text2)}
+.pc-review-verified{font-size:.65rem;color:var(--accent);background:var(--tag-bg);padding:2px 8px;border-radius:6px;font-weight:600;margin-left:auto}
+.pc-review-text{font-size:.82rem;color:var(--text2);line-height:1.6;font-style:italic}
+
+/* INFLUENCER CARDS */
+.influencers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px}
+.influencer-card{background:var(--bg2);border-radius:20px;padding:28px;border:1px solid var(--border);text-align:center;transition:all 0.35s;box-shadow:var(--card-shadow)}
+.influencer-card:hover{transform:translateY(-4px)}
+.inf-avatar{width:80px;height:80px;border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:2rem;border:3px solid var(--border)}
+.inf-name{font-size:1.1rem;font-weight:700;margin-bottom:2px}
+.inf-handle{font-size:.82rem;color:var(--text2);margin-bottom:8px}
+.inf-bio{font-size:.82rem;color:var(--text2);line-height:1.6;margin-bottom:14px}
+.inf-tags{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:14px}
+.inf-tag{font-size:.7rem;font-weight:500;color:var(--tag-text);background:var(--tag-bg);padding:4px 10px;border-radius:8px}
+.inf-stats{display:flex;justify-content:center;gap:24px}
+.inf-stat-val{font-size:1rem;font-weight:700}
+.inf-stat-label{font-size:.68rem;color:var(--text2)}
+.inf-demo{font-size:.72rem;color:var(--accent);font-weight:600;margin-top:10px;background:var(--tag-bg);display:inline-block;padding:4px 12px;border-radius:8px}
+
+/* VIDEO MODAL */
+.video-modal{display:none;position:fixed;inset:0;z-index:2000;background:var(--modal-bg);align-items:center;justify-content:center;padding:24px}
+.video-modal.open{display:flex}
+.video-modal-content{background:var(--bg2);border-radius:20px;max-width:720px;width:100%;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.4);animation:modalIn 0.3s ease}
+@keyframes modalIn{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:scale(1)}}
+.vm-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border)}
+.vm-header h3{font-size:1rem;font-weight:700}
+.vm-close{width:36px;height:36px;border-radius:10px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:all 0.2s}
+.vm-close:hover{background:var(--accent);color:#fff}
+.vm-player{aspect-ratio:16/9;background:var(--video-bg);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;position:relative}
+.vm-play-big{width:72px;height:72px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:#fff;cursor:pointer;transition:all 0.3s;box-shadow:0 4px 20px rgba(232,87,42,0.4)}
+.vm-play-big:hover{transform:scale(1.1)}
+.vm-emoji{font-size:5rem;opacity:0.3;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:0}
+.vm-play-big{z-index:1}
+.vm-playing{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px}
+.vm-wave{display:flex;align-items:end;gap:4px;height:40px}
+.vm-wave span{width:6px;background:var(--accent);border-radius:3px;animation:wave 1s ease-in-out infinite}
+.vm-wave span:nth-child(1){animation-delay:0s;height:20px}
+.vm-wave span:nth-child(2){animation-delay:0.15s;height:35px}
+.vm-wave span:nth-child(3){animation-delay:0.3s;height:25px}
+.vm-wave span:nth-child(4){animation-delay:0.45s;height:40px}
+.vm-wave span:nth-child(5){animation-delay:0.6s;height:15px}
+@keyframes wave{0%,100%{height:10px}50%{height:40px}}
+.vm-info{padding:16px 20px}
+.vm-info p{font-size:.88rem;color:var(--text2);line-height:1.6}
+.vm-reviewer{display:flex;align-items:center;gap:10px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
+.vm-reviewer-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.vm-reviewer-name{font-size:.85rem;font-weight:600}
+.vm-reviewer-handle{font-size:.72rem;color:var(--text2)}
+
+/* ABOUT / COMMUNITY */
+.about-section{background:var(--section-alt)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.about-visual{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.about-stat-card{background:var(--bg2);border-radius:16px;padding:24px;border:1px solid var(--border);text-align:center}
+.about-stat-card h3{font-size:1.8rem;font-weight:800;color:var(--accent)}
+.about-stat-card p{font-size:.78rem;color:var(--text2);margin-top:4px}
+.about-text h2{margin-bottom:24px}
+.about-text p{color:var(--text2);line-height:1.8;margin-bottom:16px;font-size:.95rem}
+
+.values-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;margin-top:48px}
+.value-card{background:var(--bg2);border-radius:16px;padding:28px;border:1px solid var(--border);transition:all 0.3s}
+.value-card:hover{border-color:var(--accent)}
+.value-icon{font-size:2rem;margin-bottom:14px}
+.value-card h4{font-size:1rem;font-weight:700;margin-bottom:8px}
+.value-card p{font-size:.85rem;color:var(--text2);line-height:1.7}
+
+/* APPLICATION FORM */
+.apply-section{background:var(--bg2);border-radius:24px;border:1px solid var(--border);padding:48px;margin-top:64px;box-shadow:var(--card-shadow)}
+.apply-section h2{margin-bottom:8px}
+.apply-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:32px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group.full{grid-column:1/-1}
+.form-label{font-size:.82rem;font-weight:600;color:var(--text)}
+.form-input,.form-select,.form-textarea{padding:12px 16px;border-radius:12px;border:1px solid var(--border);background:var(--input-bg);color:var(--text);font-family:inherit;font-size:.9rem;transition:border 0.3s}
+.form-input:focus,.form-select:focus,.form-textarea:focus{outline:none;border-color:var(--accent)}
+.form-textarea{resize:vertical;min-height:100px}
+.form-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.form-check{display:flex;align-items:flex-start;gap:10px;grid-column:1/-1}
+.form-check input{margin-top:3px;accent-color:var(--accent);width:18px;height:18px}
+.form-check label{font-size:.85rem;color:var(--text2);line-height:1.5}
+.apply-btn{padding:14px 40px;border-radius:14px;font-weight:700;font-size:1rem;background:var(--accent);color:#fff;transition:all 0.3s;box-shadow:0 4px 20px rgba(232,87,42,0.3);margin-top:8px}
+.apply-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(232,87,42,0.45)}
+.apply-perks{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px;grid-column:1/-1}
+.perk{display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--bg3);border-radius:12px;font-size:.82rem;font-weight:500;border:1px solid var(--border)}
+.perk-icon{font-size:1.2rem}
+
+/* SUCCESS MESSAGE */
+.success-msg{display:none;background:var(--success-bg);border:1px solid var(--success);border-radius:16px;padding:32px;text-align:center;margin-top:32px;animation:modalIn 0.4s ease}
+.success-msg.show{display:block}
+.success-msg .s-icon{font-size:3rem;margin-bottom:12px}
+.success-msg h3{font-size:1.2rem;font-weight:700;color:var(--success);margin-bottom:8px}
+.success-msg p{font-size:.9rem;color:var(--text2);line-height:1.6}
+
+/* TESTIMONIALS */
+.testimonials-row{display:flex;gap:24px;overflow-x:auto;padding:10px 0}
+.testimonial-card{background:var(--bg2);border-radius:16px;padding:24px;border:1px solid var(--border);min-width:340px;flex-shrink:0}
+.tc-stars{color:var(--star);font-size:.85rem;margin-bottom:12px}
+.tc-text{font-size:.9rem;color:var(--text2);line-height:1.7;margin-bottom:16px;font-style:italic}
+.tc-author{display:flex;align-items:center;gap:12px}
+.tc-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.tc-name{font-size:.85rem;font-weight:600}
+.tc-role{font-size:.75rem;color:var(--text2)}
+
+.cta-section{background:var(--hero-gradient);text-align:center}
+.cta-section h2{color:#fff;margin-bottom:16px}
+
+footer{background:var(--footer-bg);color:rgba(255,255,255,0.6);padding:60px 24px 30px}
+.footer-grid{max-width:1200px;margin:auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.footer-brand h3{color:#fff;font-size:1.2rem;margin-bottom:12px}
+.footer-brand p{font-size:.85rem;line-height:1.7}
+.footer-col h4{color:#fff;font-size:.85rem;margin-bottom:16px;text-transform:uppercase;letter-spacing:1px}
+.footer-col a{display:block;font-size:.85rem;margin-bottom:10px;transition:color 0.2s}
+.footer-col a:hover{color:var(--accent2)}
+.footer-bottom{max-width:1200px;margin:auto;padding-top:24px;border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-between;align-items:center;font-size:.78rem;flex-wrap:wrap;gap:12px}
+
+.page{display:none}.page.active{display:block}
+
+.search-bar{display:flex;gap:12px;margin-bottom:32px;flex-wrap:wrap}
+.search-input{flex:1;min-width:200px;padding:12px 20px;border-radius:12px;border:1px solid var(--border);background:var(--input-bg);font-size:.9rem;color:var(--text);font-family:inherit;transition:border 0.3s}
+.search-input:focus{outline:none;border-color:var(--accent)}
+.filter-btn{padding:10px 20px;border-radius:12px;font-size:.82rem;font-weight:500;background:var(--bg3);border:1px solid var(--border);color:var(--text);transition:all 0.25s}
+.filter-btn.active,.filter-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+.fade-in{opacity:0;transform:translateY(20px);transition:all 0.6s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:900px){
+  .nav-links{display:none}.hamburger{display:flex}
+  .about-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr 1fr}
+  .hero-stats{gap:24px;flex-wrap:wrap}.floating-cards{display:none!important}
+  .products-grid{grid-template-columns:1fr}.influencers-grid{grid-template-columns:1fr}
+  .apply-grid{grid-template-columns:1fr}.apply-perks{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  section{padding:60px 16px}.hero{padding:80px 16px 60px}
+  .hero-stats{gap:16px}.hero-stat h3{font-size:1.4rem}
+  .footer-grid{grid-template-columns:1fr}.apply-section{padding:28px 20px}
+}
+
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:var(--text2)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" onclick="showPage('home')">
+      <svg viewBox="0 0 28 28" fill="none"><path d="M14 2L2 8v12l12 6 12-6V8L14 2z" fill="currentColor" style="color:var(--accent)"/><path d="M14 8l-6 3v6l6 3 6-3v-6l-6-3z" fill="var(--bg2)"/><path d="M14 11l-3 1.5v3L14 17l3-1.5v-3L14 11z" fill="var(--accent)"/></svg>
+      TrustHive
+    </a>
+    <div class="nav-links">
+      <a href="#" class="active" onclick="showPage('home')" data-page="home">Home</a>
+      <a href="#" onclick="showPage('products')" data-page="products">Products</a>
+      <a href="#" onclick="showPage('influencers')" data-page="influencers">Influencers</a>
+      <a href="#" onclick="showPage('community')" data-page="community">Our Community</a>
+      <a href="#" class="apply-nav" onclick="showPage('apply')" data-page="apply">Become a Reviewer</a>
+      <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+    </div>
+    <button class="hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#" onclick="showPage('home');toggleMobile()">Home</a>
+  <a href="#" onclick="showPage('products');toggleMobile()">Products</a>
+  <a href="#" onclick="showPage('influencers');toggleMobile()">Influencers</a>
+  <a href="#" onclick="showPage('community');toggleMobile()">Our Community</a>
+  <a href="#" class="apply-mobile" onclick="showPage('apply');toggleMobile()">Become a Reviewer</a>
+  <button onclick="toggleTheme()">Toggle Dark/Light Mode 🌙</button>
+</div>
+
+<!-- VIDEO MODAL -->
+<div class="video-modal" id="videoModal" onclick="if(event.target===this)closeVideo()">
+  <div class="video-modal-content">
+    <div class="vm-header">
+      <h3 id="vmTitle">Video Review</h3>
+      <button class="vm-close" onclick="closeVideo()">✕</button>
+    </div>
+    <div class="vm-player" id="vmPlayer">
+      <div class="vm-emoji" id="vmEmoji">📦</div>
+      <div class="vm-play-big" id="vmPlayBtn" onclick="playVideo()">▶</div>
+    </div>
+    <div class="vm-info">
+      <p id="vmDesc">Loading...</p>
+      <div class="vm-reviewer">
+        <div class="vm-reviewer-avatar" id="vmAvatar">👤</div>
+        <div>
+          <div class="vm-reviewer-name" id="vmName">Reviewer</div>
+          <div class="vm-reviewer-handle" id="vmHandle">@handle</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HOME -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge"><span></span> Trusted by 50,000+ families</div>
+      <h1>Real Reviews from <em>Real People</em> You Trust</h1>
+      <p>TrustHive connects you with verified influencers across every age group — from toy testers to skincare experts — delivering honest product reviews you can actually believe.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('products')">Explore Products</button>
+        <button class="btn-secondary" onclick="showPage('apply')">Become a Reviewer</button>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><h3>12K+</h3><p>Verified Reviews</p></div>
+        <div class="hero-stat"><h3>850+</h3><p>Influencers</p></div>
+        <div class="hero-stat"><h3>98%</h3><p>Trust Score</p></div>
+        <div class="hero-stat"><h3>All Ages</h3><p>Kids to Seniors</p></div>
+      </div>
+    </div>
+    <div class="floating-cards">
+      <div class="float-card" style="width:220px"><div class="fc-head"><div class="fc-avatar" style="background:#fde68a">👧</div><div><div class="fc-name">Lily Rose</div><div class="fc-handle">Age 9 · Toy Tester</div></div></div><div class="fc-stars">★★★★★</div><div class="fc-text">"This art kit is the BEST! I use it every single day!"</div></div>
+      <div class="float-card" style="width:240px"><div class="fc-head"><div class="fc-avatar" style="background:#c4b5fd">👨‍🦳</div><div><div class="fc-name">Robert Chen</div><div class="fc-handle">Age 72 · Wellness</div></div></div><div class="fc-stars">★★★★★</div><div class="fc-text">"Finally a joint supplement that actually works. 3 months in."</div></div>
+      <div class="float-card" style="width:210px"><div class="fc-head"><div class="fc-avatar" style="background:#a7f3d0">👩</div><div><div class="fc-name">Aisha M.</div><div class="fc-handle">Mom of 3</div></div></div><div class="fc-stars">★★★★☆</div><div class="fc-text">"Solid stroller. Great value for the price."</div></div>
+    </div>
+  </section>
+
+  <section><div class="container fade-in">
+    <div class="section-tag">Trending Now</div>
+    <h2 class="section-title">Top Reviewed This Week</h2>
+    <p class="section-desc" style="margin-bottom:40px">Products earning the highest trust scores from our verified influencer community.</p>
+    <div class="products-grid" id="featuredProducts"></div>
+  </div></section>
+
+  <section style="background:var(--section-alt)"><div class="container fade-in">
+    <div class="section-tag">Community Voices</div>
+    <h2 class="section-title">What Our Community Says</h2>
+    <p class="section-desc" style="margin-bottom:40px">Real feedback from real members who rely on TrustHive every day.</p>
+    <div class="testimonials-row" id="testimonials"></div>
+  </div></section>
+
+  <section class="cta-section"><div class="container" style="text-align:center">
+    <h2 class="section-title" style="color:#fff">Join the Hive Today</h2>
+    <p style="color:rgba(255,255,255,0.7);max-width:500px;margin:0 auto 32px;font-size:1.05rem">Whether you're a parent, grandparent, teen, or creator — there's a place for you in our trusted community.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <button class="btn-primary" onclick="showPage('apply')">Apply as Reviewer</button>
+      <button class="btn-secondary" onclick="showPage('community')">Learn Our Mission</button>
+    </div>
+  </div></section>
+</div>
+
+<!-- PRODUCTS -->
+<div class="page" id="page-products">
+  <section style="padding-top:120px"><div class="container">
+    <div class="section-tag">Product Directory</div>
+    <h2 class="section-title">Browse All Products</h2>
+    <p class="section-desc" style="margin-bottom:32px">Every product reviewed by real influencers. Watch video reviews and shop from trusted retailers.</p>
+    <div class="search-bar"><input type="text" class="search-input" placeholder="Search products..." id="productSearch" oninput="filterProducts()"></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px" id="categoryFilters"></div>
+    <div class="products-grid" id="allProducts"></div>
+  </div></section>
+</div>
+
+<!-- INFLUENCERS -->
+<div class="page" id="page-influencers">
+  <section style="padding-top:120px"><div class="container">
+    <div class="section-tag">Our Creators</div>
+    <h2 class="section-title">Meet the Influencers</h2>
+    <p class="section-desc" style="margin-bottom:32px">Diverse voices from every generation — all verified, all honest.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px" id="demoFilters"></div>
+    <div class="influencers-grid" id="allInfluencers"></div>
+  </div></section>
+</div>
+
+<!-- COMMUNITY -->
+<div class="page" id="page-community">
+  <section style="padding-top:120px" class="about-section"><div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="section-tag">Our Why</div>
+        <h2 class="section-title">Building Trust in a Noisy World</h2>
+        <p>We started TrustHive because we were tired of fake reviews, paid endorsements disguised as honest opinions, and algorithms that bury the truth. As parents, grandparents, and consumers ourselves, we wanted a place where <strong>every generation</strong> could find honest product guidance.</p>
+        <p>Whether you're a mom researching the safest car seat, a teenager looking for skincare that actually works, or a retiree exploring the best mobility aids — you deserve reviews from people who genuinely use these products in their daily lives.</p>
+        <p>Our influencers span <strong>every age group and demographic</strong>. We believe diversity of perspective leads to better recommendations. A product for kids should be reviewed by kids (and their parents). A product for seniors should be reviewed by seniors. That's the TrustHive difference.</p>
+        <p><strong>No paid placements. No hidden sponsorships. Just honest reviews from verified users.</strong></p>
+      </div>
+      <div class="about-visual">
+        <div class="about-stat-card"><h3>50K+</h3><p>Community Members</p></div>
+        <div class="about-stat-card"><h3>98%</h3><p>Trust Rating</p></div>
+        <div class="about-stat-card"><h3>850+</h3><p>Verified Creators</p></div>
+        <div class="about-stat-card"><h3>0</h3><p>Paid Placements</p></div>
+      </div>
+    </div>
+    <div class="values-grid">
+      <div class="value-card"><div class="value-icon">🛡️</div><h4>Radical Transparency</h4><p>Every review shows the influencer's relationship with the product. If they got it free, you'll know. If they bought it themselves, you'll know that too.</p></div>
+      <div class="value-card"><div class="value-icon">🌍</div><h4>Every Generation Welcome</h4><p>From 7 to 97, our community represents real humans at every stage of life. Kids review toys, teens review tech, parents review gear, and grandparents review wellness.</p></div>
+      <div class="value-card"><div class="value-icon">✅</div><h4>Verified Purchase Only</h4><p>We verify that every influencer has actually used the product before reviewing it. No unboxing-only reviews. No skimming the manual and guessing.</p></div>
+      <div class="value-card"><div class="value-icon">🤝</div><h4>Community-Driven Trust Scores</h4><p>Our trust scores are calculated from real community feedback. If an influencer's reviews consistently help people, their trust score rises organically.</p></div>
+      <div class="value-card"><div class="value-icon">👨‍👩‍👧‍👦</div><h4>Family Safe</h4><p>All content is moderated for safety, especially content involving young reviewers. Parents approve all kid-created reviews, and our team monitors every post.</p></div>
+      <div class="value-card"><div class="value-icon">📊</div><h4>Data You Can Trust</h4><p>We never sell your data or let brands manipulate rankings. Our algorithms prioritize helpfulness and honesty — not ad spend.</p></div>
+    </div>
+  </div></section>
+  <section class="cta-section"><div class="container" style="text-align:center">
+    <h2 class="section-title" style="color:#fff">Become a Trusted Reviewer</h2>
+    <p style="color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto 32px;font-size:1.05rem">Whether you're 8 or 80, your honest voice matters. Join TrustHive and help others make informed decisions.</p>
+    <button class="btn-primary" onclick="showPage('apply')">Apply Now</button>
+  </div></section>
+</div>
+
+<!-- APPLY PAGE -->
+<div class="page" id="page-apply">
+  <section style="padding-top:120px"><div class="container">
+    <div class="section-tag">Join Our Community</div>
+    <h2 class="section-title">Apply to Become a TrustHive Reviewer</h2>
+    <p class="section-desc" style="margin-bottom:16px">We welcome creators of <strong>all ages and backgrounds</strong>. Whether you're a kid who loves testing toys, a parent navigating baby gear, or a retiree sharing wellness wisdom — your voice matters here.</p>
+
+    <div class="apply-section">
+      <h2 class="section-title" style="font-size:1.4rem">Your Application</h2>
+      <p style="color:var(--text2);font-size:.9rem">Fill out the form below and our team will review your application within 5 business days.</p>
+
+      <div id="applyForm">
+        <div class="apply-grid">
+          <div class="form-group">
+            <label class="form-label">Full Name *</label>
+            <input type="text" class="form-input" placeholder="Your full name" id="applyName">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address *</label>
+            <input type="email" class="form-input" placeholder="you@email.com" id="applyEmail">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Age *</label>
+            <input type="number" class="form-input" placeholder="Your age" min="5" max="120" id="applyAge">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Age Category *</label>
+            <select class="form-select" id="applyCategory">
+              <option value="">Select your category</option>
+              <option>Kid Reviewer (Ages 5-12, parent supervised)</option>
+              <option>Teen Reviewer (Ages 13-17)</option>
+              <option>Young Adult (Ages 18-29)</option>
+              <option>Parent / Family Reviewer</option>
+              <option>Adult 30-49</option>
+              <option>Adult 50+</option>
+              <option>Senior Reviewer (65+)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Primary Social Platform</label>
+            <select class="form-select" id="applyPlatform">
+              <option value="">Select platform</option>
+              <option>YouTube</option>
+              <option>TikTok</option>
+              <option>Instagram</option>
+              <option>Facebook</option>
+              <option>Blog / Website</option>
+              <option>None yet — starting fresh!</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Follower Count (approximate)</label>
+            <select class="form-select" id="applyFollowers">
+              <option value="">Select range</option>
+              <option>Just starting (0-500)</option>
+              <option>Growing (500-5K)</option>
+              <option>Established (5K-50K)</option>
+              <option>Influencer (50K-500K)</option>
+              <option>Major Creator (500K+)</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label class="form-label">What product categories do you review? *</label>
+            <input type="text" class="form-input" placeholder="e.g., Kids Toys, Skincare, Kitchen Gadgets, Mobility Aids, Tech..." id="applyTopics">
+          </div>
+          <div class="form-group full">
+            <label class="form-label">Why do you want to join TrustHive? *</label>
+            <textarea class="form-textarea" placeholder="Tell us about your passion for honest reviews and what makes your perspective unique..." id="applyWhy"></textarea>
+          </div>
+          <div class="form-group full">
+            <label class="form-label">Link to your best review (video, blog post, or social post)</label>
+            <input type="text" class="form-input" placeholder="https://..." id="applyLink">
+          </div>
+          <div class="form-check">
+            <input type="checkbox" id="applyTerms">
+            <label for="applyTerms">I agree to TrustHive's <strong>Honest Review Pledge</strong>: I commit to providing truthful, unbiased product reviews. I understand that accepting undisclosed paid promotions will result in removal from the platform. For applicants under 13, a parent or guardian must co-manage the account.</label>
+          </div>
+          <div class="apply-perks">
+            <div class="perk"><span class="perk-icon">📦</span> Free products to review from partner brands</div>
+            <div class="perk"><span class="perk-icon">💰</span> Earn through our honest review reward program</div>
+            <div class="perk"><span class="perk-icon">📈</span> Grow your audience with TrustHive exposure</div>
+            <div class="perk"><span class="perk-icon">🏆</span> Earn trust badges and community recognition</div>
+          </div>
+          <div class="form-group full" style="margin-top:8px">
+            <button class="apply-btn" onclick="submitApplication()">Submit Application</button>
+          </div>
+        </div>
+      </div>
+      <div class="success-msg" id="successMsg">
+        <div class="s-icon">🎉</div>
+        <h3>Application Submitted!</h3>
+        <p>Thank you for applying to join TrustHive! Our team will review your application and get back to you within 5 business days. In the meantime, explore our <a href="#" onclick="showPage('products')" style="color:var(--accent);font-weight:600">product reviews</a> and <a href="#" onclick="showPage('influencers')" style="color:var(--accent);font-weight:600">meet our influencers</a>.</p>
+      </div>
+    </div>
+  </div></section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h3>🔶 TrustHive</h3>
+      <p>The multi-generational product review platform built on honesty, transparency, and community trust. From kids to grandparents — every voice matters.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Platform</h4>
+      <a href="#" onclick="showPage('products')">Products</a>
+      <a href="#" onclick="showPage('influencers')">Influencers</a>
+      <a href="#" onclick="showPage('community')">Community</a>
+      <a href="#" onclick="showPage('apply')">Become a Reviewer</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#" onclick="showPage('community')">About Us</a>
+      <a href="#">Careers</a>
+      <a href="#">Press</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <a href="#">Review Guidelines</a>
+      <a href="#">Parent Safety Guide</a>
+      <a href="#">Creator Handbook</a>
+      <a href="#">FAQ</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 TrustHive. All rights reserved.</span>
+    <span>Privacy · Terms · Accessibility</span>
+  </div>
+</footer>
+
+<script>
+const influencers = [
+  {name:"Lily Rose",handle:"@lilyreviews",age:9,avatar:"👧",bg:"#fde68a",demo:"Kids",bio:"9-year-old toy & art supply expert. Tests every product for at least 2 weeks before reviewing!",tags:["Toys","Arts & Crafts","Kids Tech"],reviews:87,trust:96,followers:"45K"},
+  {name:"Marcus Johnson Jr.",handle:"@marcusjrplays",age:12,avatar:"👦🏾",bg:"#a7f3d0",demo:"Kids",bio:"12-year-old gamer and STEM kit reviewer. Future engineer who breaks down every build!",tags:["STEM","Gaming","Education"],reviews:62,trust:94,followers:"38K"},
+  {name:"Sofia Hernandez",handle:"@sofiatrends",age:17,avatar:"👩🏽",bg:"#fca5a5",demo:"Teens",bio:"Teen beauty & skincare honest reviewer. Sensitive skin tested on a student budget.",tags:["Skincare","Beauty","Budget Finds"],reviews:134,trust:97,followers:"120K"},
+  {name:"Jake Kim",handle:"@jaketechtok",age:19,avatar:"👨🏻",bg:"#93c5fd",demo:"Young Adults",bio:"College student reviewing dorm essentials, budget tech, and productivity tools.",tags:["Tech","College Life","Budget"],reviews:98,trust:93,followers:"85K"},
+  {name:"Aisha Patel",handle:"@aishamomlife",age:34,avatar:"👩🏽‍🦱",bg:"#c4b5fd",demo:"Parents",bio:"Mom of 3 under 5. Reviews baby gear, toddler products & parenting tools with real-life chaos testing.",tags:["Baby Gear","Parenting","Home"],reviews:210,trust:99,followers:"230K"},
+  {name:"David & Maria Lopez",handle:"@lopezfamily",age:40,avatar:"👨‍👩‍👧‍👦",bg:"#fdba74",demo:"Parents",bio:"Family of 5 reviewing products for the whole household — from cribs to gaming chairs.",tags:["Family","Home","Outdoors"],reviews:156,trust:95,followers:"175K"},
+  {name:"James Okafor",handle:"@jamesfitover40",age:45,avatar:"👨🏿",bg:"#86efac",demo:"Adults 40+",bio:"Fitness and wellness reviewer for the over-40 crowd. Real results, no gimmicks.",tags:["Fitness","Wellness","Supplements"],reviews:178,trust:96,followers:"140K"},
+  {name:"Linda Nakamura",handle:"@lindacooks",age:55,avatar:"👩🏻",bg:"#fcd34d",demo:"Adults 50+",bio:"Home chef and kitchen gadget reviewer. 30 years of cooking experience meets modern tools.",tags:["Kitchen","Cooking","Home"],reviews:220,trust:98,followers:"195K"},
+  {name:"Robert Chen",handle:"@robertwellness",age:72,avatar:"👨🏻‍🦳",bg:"#d8b4fe",demo:"Seniors",bio:"Retired physician reviewing health, mobility, and wellness products for active seniors.",tags:["Health","Mobility","Wellness"],reviews:145,trust:99,followers:"110K"},
+  {name:"Eleanor Washington",handle:"@eleanorgarden",age:78,avatar:"👵🏾",bg:"#f9a8d4",demo:"Seniors",bio:"Grandma of 8 reviewing gardening tools, comfort products, and gifts for grandkids.",tags:["Gardening","Comfort","Gifts"],reviews:89,trust:97,followers:"65K"},
+  {name:"Tyler Brooks",handle:"@tyleroutdoors",age:28,avatar:"🧔",bg:"#67e8f9",demo:"Young Adults",bio:"Outdoor adventure and camping gear reviewer. Every product field-tested in real conditions.",tags:["Outdoors","Camping","Adventure"],reviews:165,trust:95,followers:"200K"},
+  {name:"Emma Zhang",handle:"@emmapregnancy",age:31,avatar:"🤰",bg:"#fda4af",demo:"Parents",bio:"Pregnancy & new mom product reviewer. Currently on baby #2 and testing everything twice!",tags:["Pregnancy","Baby","Wellness"],reviews:112,trust:98,followers:"160K"},
+];
+
+const retailers = [
+  {name:"Amazon",icon:"🛒",url:"https://www.amazon.com"},
+  {name:"Target",icon:"🎯",url:"https://www.target.com"},
+  {name:"Walmart",icon:"🏬",url:"https://www.walmart.com"},
+  {name:"Best Buy",icon:"💻",url:"https://www.bestbuy.com"},
+];
+
+const products = [
+  {name:"MegaBlocks Creative Builder Set",price:"$34.99",category:"Kids Toys",img:"🧱",rating:4.8,trust:96,badge:"Editor's Pick",ageGroup:"Ages 4-10",
+    retailers:[{n:"Amazon",i:"🛒",u:"https://www.amazon.com/s?k=mega+blocks+creative+builder"},{n:"Target",i:"🎯",u:"https://www.target.com/s?searchTerm=mega+blocks"},{n:"Walmart",i:"🏬",u:"https://www.walmart.com/search?q=mega+blocks+builder"}],
+    videos:[{type:"Unboxing",dur:"4:32",emoji:"📦"},{type:"Play Test",dur:"8:15",emoji:"🎮"},{type:"Review",dur:"6:44",emoji:"⭐"}],
+    review:{influencer:0,text:"I've been building with this every day for 3 weeks and the pieces never break! Way better than the other brand I had."}},
+  {name:"GlowSkin Teen Acne Kit",price:"$24.99",category:"Teen Beauty",img:"✨",rating:4.6,trust:94,badge:"",ageGroup:"Ages 13-19",
+    retailers:[{n:"Amazon",i:"🛒",u:"https://www.amazon.com/s?k=teen+acne+skincare+kit"},{n:"Target",i:"🎯",u:"https://www.target.com/s?searchTerm=teen+acne+kit"},{n:"Ulta",i:"💄",u:"https://www.ulta.com/shop/skincare"}],
+    videos:[{type:"Unboxing",dur:"3:18",emoji:"📦"},{type:"2-Week Results",dur:"7:22",emoji:"📸"},{type:"Full Review",dur:"5:55",emoji:"⭐"}],
+    review:{influencer:2,text:"Finally a kit that doesn't dry out my sensitive skin. Saw real results in 2 weeks. No burning, no flaking."}},
+  {name:"BabyNest Pro Stroller",price:"$299.99",category:"Baby Gear",img:"👶",rating:4.9,trust:99,badge:"Top Rated",ageGroup:"New Parents",
+    retailers:[{n:"Amazon",i:"🛒",u:"https://www.amazon.com/s?k=baby+stroller+pro"},{n:"Target",i:"🎯",u:"https://www.target.com/s?searchTerm=baby+stroller"},{n:"Buy Buy Baby",i:"🍼",u:"https://www.buybuybaby.com"}],
+    videos:[{type:"Unboxing",dur:"5:10",emoji:"📦"},{type:"Fold Test",dur:"2:45",emoji:"🔧"},{type:"6-Month Review",dur:"9:30",emoji:"⭐"}],
+    review:{influencer:4,text:"Tested with all 3 of my kids in rain, snow, and mall marathons. The one-hand fold is a lifesaver with a toddler on your hip."}},
+  {name:"FlexJoint Plus Supplement",price:"$39.99",category:"Senior Health",img:"💪",rating:4.7,trust:97,badge:"",ageGroup:"Ages 55+",
+    retailers:[{n:"Amazon",i:"🛒",u:"https://www.amazon.com/s?k=joint+supplement+senior"},{n:"Walmart",i:"🏬",u:"https://www.walmart.com/search?q=joint+supplement"},{n:"CVS",i:"💊",u:"https://www.cvs.com/search?searchTerm=joint+supplement"}],
+    videos:[{type:"Unboxing",dur:"3:05",emoji:"📦"},{type:"3-Month Update",dur:"6:48",emoji:"📊"},{type:"Doctor's Review",dur:"10:15",emoji:"🩺"}],
+    review:{influencer:8,text:"As a retired physician, I'm skeptical of supplements. But 3 months of FlexJoint Plus and my morning stiffness has genuinely improved."}},
+  {name:"TechDesk Pro Student Edition",price:"$149.99",category:"College Essentials",img:"🖥️",rating:4.5,trust:93,badge:"",ageGroup:"Ages 17-25",
+    retailers:[{n:"Amazon",i:"🛒",u:"https://www.amazon.com/s?k=student+desk+adjustable"},{n:"IKEA",i:"🪑",u:"https://www.ikea.com/us/en/search/?q=student+desk"},{n:"Walmart",i:"🏬",u:"https://www.walmart.com/search?q=student+computer+desk"}],
+    videos:[{type:"Unboxing",dur:"4:20",emoji:"📦"},{type:"Assembly",dur:"12:30",emoji:"🔧"},{type:"Dorm Tour",dur:"7:15",emoji:"🏠"}],
+    review:{influencer:3,text:"Perfect for my dorm room. Fits my monitor, laptop, and still has space for textbooks. Assembly took 20 minutes."}},
+  {name:"SafeStep Mobility Walker",price:"$189.99",category:"Senior Mobility",img:"🦯",rating:4.9,trust:99,badge:"Top Rated",ageGroup:"Ages 65+",
+    retailers:[{n:"Amazon",i:"🛒",u:"https://www.amazon.com/s?k=mobility+walker+lightweight"},{n:"Walmart",i:"🏬",u:"https://www.walmart.com/search?q=mobility+walker"},{n:"Walgreens",i:"💊",u:"https://www.walgreens.com/search/results.jsp?Ntt=mobility+walker"}],
+    videos:[{type:"Unboxing",dur:"3:55",emoji:"📦"},{type:"Daily Use",dur:"6:20",emoji:"🚶"},{type:"Comparison",dur:"8:40",emoji:"⚖️"}],
+    review:{influencer:8,text:"Lightweight, folds flat, and the seat is comfortable for resting. Recommended this to 4 patients before I retired."}},
+  {name:"Adventure Pro 4-Person Tent",price:"$219.99",category:"Outdoor Gear",img:"⛺",rating:4.7,trust:95,badge:"Field Tested",ageGroup:"All Ages",
+    retailers:[{n:"Amazon",i:"🛒",u:"https://www.amazon.com/s?k=4+person+camping+tent"},{n:"REI",i:"🏔️",u:"https://www.rei.com/search?q=4+person+tent"},{n:"Bass Pro",i:"🎣",u:"https://www.basspro.com/shop/en/search?q=4+person+tent"}],
+    videos:[{type:"Unboxing",dur:"4:50",emoji:"📦"},{type:"Rain Test",dur:"6:30",emoji:"🌧️"},{type:"Field Review",dur:"11:20",emoji:"🏕️"}],
+    review:{influencer:10,text:"Survived a 3-day rainstorm in the Cascades without a single leak. Setup takes 5 minutes solo."}},
+  {name:"SmartChef Air Fryer XL",price:"$89.99",category:"Kitchen",img:"🍳",rating:4.8,trust:98,badge:"Best Value",ageGroup:"All Ages",
+    retailers:[{n:"Amazon",i:"🛒",u:"https://www.amazon.com/s?k=air+fryer+xl"},{n:"Target",i:"🎯",u:"https://www.target.com/s?searchTerm=air+fryer+xl"},{n:"Best Buy",i:"💻",u:"https://www.bestbuy.com/site/searchpage.jsp?st=air+fryer"}],
+    videos:[{type:"Unboxing",dur:"3:40",emoji:"📦"},{type:"Cook Test",dur:"9:15",emoji:"👨‍🍳"},{type:"30-Day Review",dur:"7:50",emoji:"⭐"}],
+    review:{influencer:7,text:"After 30 years of cooking, I'm amazed. Crispy results every time, easy to clean, and big enough for a family dinner."}},
+  {name:"STEM Robotics Starter Kit",price:"$59.99",category:"Kids Education",img:"🤖",rating:4.6,trust:94,badge:"",ageGroup:"Ages 8-14",
+    retailers:[{n:"Amazon",i:"🛒",u:"https://www.amazon.com/s?k=stem+robotics+kit+kids"},{n:"Target",i:"🎯",u:"https://www.target.com/s?searchTerm=stem+robotics+kit"},{n:"Best Buy",i:"💻",u:"https://www.bestbuy.com/site/searchpage.jsp?st=stem+kit"}],
+    videos:[{type:"Unboxing",dur:"5:25",emoji:"📦"},{type:"Build #1",dur:"14:30",emoji:"🔧"},{type:"Kid Review",dur:"4:45",emoji:"⭐"}],
+    review:{influencer:1,text:"Built 5 different robots so far! The instructions are clear and the app works great. My dad even had fun helping me."}},
+  {name:"ComfortCloud Memory Pillow",price:"$49.99",category:"Senior Comfort",img:"☁️",rating:4.5,trust:96,badge:"",ageGroup:"Ages 50+",
+    retailers:[{n:"Amazon",i:"🛒",u:"https://www.amazon.com/s?k=memory+foam+pillow+neck+pain"},{n:"Walmart",i:"🏬",u:"https://www.walmart.com/search?q=memory+foam+pillow"},{n:"Bed Bath",i:"🛏️",u:"https://www.bedbathandbeyond.com/s/memory-foam-pillow"}],
+    videos:[{type:"Unboxing",dur:"3:10",emoji:"📦"},{type:"Sleep Test",dur:"5:30",emoji:"😴"},{type:"2-Week Review",dur:"6:15",emoji:"⭐"}],
+    review:{influencer:9,text:"Best pillow I've had in years. My neck pain is almost gone after two weeks. Bought one for each of my grandkids too!"}},
+  {name:"FamilyFit Outdoor Game Set",price:"$44.99",category:"Family",img:"🏸",rating:4.7,trust:95,badge:"Family Pick",ageGroup:"All Ages",
+    retailers:[{n:"Amazon",i:"🛒",u:"https://www.amazon.com/s?k=outdoor+family+game+set"},{n:"Target",i:"🎯",u:"https://www.target.com/s?searchTerm=outdoor+game+set"},{n:"Dick's",i:"⚽",u:"https://www.dickssportinggoods.com/search/SearchDisplay?searchTerm=outdoor+game+set"}],
+    videos:[{type:"Unboxing",dur:"4:15",emoji:"📦"},{type:"Family Play",dur:"8:40",emoji:"👨‍👩‍👧‍👦"},{type:"Durability Test",dur:"5:55",emoji:"💪"}],
+    review:{influencer:5,text:"Our whole family — ages 4 to 42 — plays with this every weekend. Durable, fun, and actually gets kids off screens."}},
+  {name:"PregnaVita Prenatal Vitamins",price:"$29.99",category:"Pregnancy",img:"🤰",rating:4.8,trust:98,badge:"",ageGroup:"Expecting Moms",
+    retailers:[{n:"Amazon",i:"🛒",u:"https://www.amazon.com/s?k=prenatal+vitamins"},{n:"Target",i:"🎯",u:"https://www.target.com/s?searchTerm=prenatal+vitamins"},{n:"CVS",i:"💊",u:"https://www.cvs.com/search?searchTerm=prenatal+vitamins"}],
+    videos:[{type:"Unboxing",dur:"2:50",emoji:"📦"},{type:"Ingredients",dur:"7:20",emoji:"🔬"},{type:"Honest Review",dur:"5:40",emoji:"⭐"}],
+    review:{influencer:11,text:"No nausea like my last brand. Easy to swallow, no weird aftertaste. My OB approved it too."}},
+];
+
+const testimonials = [
+  {text:"TrustHive helped me find the right walker for my dad. Robert Chen's review was so detailed — it felt like getting advice from a doctor friend.",author:"Sandra K.",role:"Daughter & Caretaker",avatar:"👩",bg:"#fca5a5"},
+  {text:"As a teen, I was so sick of sponsored beauty content. Sofia's reviews on here are genuinely honest. I finally found skincare that works for me.",author:"Maya T.",role:"Age 16, Student",avatar:"👩🏽",bg:"#c4b5fd"},
+  {text:"My 8-year-old son watches Marcus Jr.'s reviews to decide which STEM kits to ask for. It's kids helping kids make smart choices!",author:"Tom R.",role:"Father of 2",avatar:"👨",bg:"#93c5fd"},
+  {text:"I've been burned by fake Amazon reviews so many times. TrustHive's verification process means I can finally trust what I read.",author:"Karen L.",role:"Grandma & Smart Shopper",avatar:"👵",bg:"#fde68a"},
+  {text:"The family product reviews from the Lopez family are amazing. They test things the way real families actually use them — messy and honest.",author:"Jin W.",role:"New Dad",avatar:"👨🏻",bg:"#a7f3d0"},
+];
+
+// Video data for modal
+let currentVideoData = null;
+
+function renderStars(r) {
+  let s='';const full=Math.floor(r),half=r%1>=0.5;
+  for(let i=0;i<full;i++) s+='★';
+  if(half) s+='★';
+  for(let i=s.length;i<5;i++) s+='☆';
+  return s;
+}
+
+function renderProductCard(p, idx) {
+  const inf=influencers[p.review.influencer];
+  const vids=p.videos.map((v,vi)=>
+    `<div class="pc-video-thumb" onclick="openVideo(${idx},${vi})">
+      <span class="vt-emoji">${v.emoji}</span>
+      <span class="vt-play">▶</span>
+      <span class="vt-label">${v.type}</span>
+      <span class="vt-dur">${v.dur}</span>
+    </div>`
+  ).join('');
+  const links=p.retailers.map(r=>
+    `<a href="${r.u}" target="_blank" rel="noopener noreferrer" class="retail-link"><span class="rl-icon">${r.i}</span>${r.n}</a>`
+  ).join('');
+  return `<div class="product-card" data-category="${p.category}">
+    <div class="pc-image" style="background:linear-gradient(135deg,${inf.bg}33,${inf.bg}22)">
+      ${p.img}
+      ${p.badge?`<div class="pc-badge">${p.badge}</div>`:''}
+      <div class="pc-age-badge">${p.ageGroup}</div>
+    </div>
+    <div class="pc-body">
+      <div class="pc-category">${p.category}</div>
+      <div class="pc-title">${p.name}</div>
+      <div class="pc-price">${p.price}</div>
+      <div class="pc-rating"><span class="pc-stars">${renderStars(p.rating)}</span><span>${p.rating}/5</span></div>
+      <div class="pc-videos">${vids}</div>
+      <div class="pc-retailers">${links}</div>
+      <div class="trust-meter">
+        <div class="trust-meter-label"><span>Trust Score</span><span>${p.trust}%</span></div>
+        <div class="trust-bar-bg"><div class="trust-bar-fill" style="width:${p.trust}%"></div></div>
+      </div>
+      <div class="pc-review">
+        <div class="pc-review-head">
+          <div class="pc-review-avatar" style="background:${inf.bg}">${inf.avatar}</div>
+          <div><div class="pc-review-name">${inf.name}</div><div class="pc-review-handle">${inf.handle}</div></div>
+          <div class="pc-review-verified">✓ Verified</div>
+        </div>
+        <div class="pc-review-text">"${p.review.text}"</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderInfluencerCard(inf) {
+  return `<div class="influencer-card" data-demo="${inf.demo}">
+    <div class="inf-avatar" style="background:${inf.bg}">${inf.avatar}</div>
+    <div class="inf-name">${inf.name}</div>
+    <div class="inf-handle">${inf.handle} · Age ${inf.age}</div>
+    <div class="inf-bio">${inf.bio}</div>
+    <div class="inf-tags">${inf.tags.map(t=>`<span class="inf-tag">${t}</span>`).join('')}</div>
+    <div class="inf-stats">
+      <div><div class="inf-stat-val">${inf.reviews}</div><div class="inf-stat-label">Reviews</div></div>
+      <div><div class="inf-stat-val">${inf.trust}%</div><div class="inf-stat-label">Trust</div></div>
+      <div><div class="inf-stat-val">${inf.followers}</div><div class="inf-stat-label">Followers</div></div>
+    </div>
+    <div class="inf-demo">${inf.demo}</div>
+  </div>`;
+}
+
+function renderTestimonial(t) {
+  return `<div class="testimonial-card">
+    <div class="tc-stars">★★★★★</div>
+    <div class="tc-text">"${t.text}"</div>
+    <div class="tc-author"><div class="tc-avatar" style="background:${t.bg}">${t.avatar}</div><div><div class="tc-name">${t.author}</div><div class="tc-role">${t.role}</div></div></div>
+  </div>`;
+}
+
+// VIDEO MODAL
+function openVideo(pIdx, vIdx) {
+  const p=products[pIdx], v=p.videos[vIdx], inf=influencers[p.review.influencer];
+  document.getElementById('vmTitle').textContent=`${v.type} — ${p.name}`;
+  document.getElementById('vmEmoji').textContent=p.img;
+  document.getElementById('vmDesc').textContent=`${v.type} video for ${p.name}. Duration: ${v.dur}. Reviewed by ${inf.name}.`;
+  document.getElementById('vmAvatar').textContent=inf.avatar;
+  document.getElementById('vmAvatar').style.background=inf.bg;
+  document.getElementById('vmName').textContent=inf.name;
+  document.getElementById('vmHandle').textContent=inf.handle;
+  const player=document.getElementById('vmPlayer');
+  player.innerHTML=`<div class="vm-emoji">${p.img}</div><div class="vm-play-big" onclick="playVideo()">▶</div>`;
+  document.getElementById('videoModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function playVideo() {
+  const player=document.getElementById('vmPlayer');
+  player.innerHTML=`<div class="vm-playing"><div class="vm-wave"><span></span><span></span><span></span><span></span><span></span></div><p style="color:var(--text2);font-size:.85rem;margin-top:12px">Playing video review...</p><button onclick="pauseVideo()" style="margin-top:8px;padding:8px 20px;border-radius:10px;background:var(--accent);color:#fff;font-weight:600;font-size:.82rem">⏸ Pause</button></div>`;
+}
+function pauseVideo() {
+  const player=document.getElementById('vmPlayer');
+  player.innerHTML=`<div class="vm-playing"><p style="font-size:3rem;opacity:0.5">⏸</p><p style="color:var(--text2);font-size:.85rem;margin-top:8px">Paused</p><button onclick="playVideo()" style="margin-top:8px;padding:8px 20px;border-radius:10px;background:var(--accent);color:#fff;font-weight:600;font-size:.82rem">▶ Resume</button></div>`;
+}
+function closeVideo() {
+  document.getElementById('videoModal').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+// APPLICATION
+function submitApplication() {
+  const name=document.getElementById('applyName').value.trim();
+  const email=document.getElementById('applyEmail').value.trim();
+  const age=document.getElementById('applyAge').value;
+  const cat=document.getElementById('applyCategory').value;
+  const topics=document.getElementById('applyTopics').value.trim();
+  const why=document.getElementById('applyWhy').value.trim();
+  const terms=document.getElementById('applyTerms').checked;
+  if(!name||!email||!age||!cat||!topics||!why){alert('Please fill in all required fields marked with *.');return;}
+  if(!terms){alert('Please agree to the Honest Review Pledge to continue.');return;}
+  if(!email.includes('@')){alert('Please enter a valid email address.');return;}
+  document.getElementById('applyForm').style.display='none';
+  document.getElementById('successMsg').classList.add('show');
+  window.scrollTo({top:document.getElementById('successMsg').offsetTop-100,behavior:'smooth'});
+}
+
+function init() {
+  document.getElementById('featuredProducts').innerHTML=products.slice(0,6).map((p,i)=>renderProductCard(p,i)).join('');
+  document.getElementById('allProducts').innerHTML=products.map((p,i)=>renderProductCard(p,i)).join('');
+  document.getElementById('allInfluencers').innerHTML=influencers.map(renderInfluencerCard).join('');
+  document.getElementById('testimonials').innerHTML=testimonials.map(renderTestimonial).join('');
+  const cats=['All',...new Set(products.map(p=>p.category))];
+  document.getElementById('categoryFilters').innerHTML=cats.map((c,i)=>
+    `<button class="filter-btn ${i===0?'active':''}" onclick="filterCategory(this,'${c}')">${c}</button>`
+  ).join('');
+  const demos=['All',...new Set(influencers.map(i=>i.demo))];
+  document.getElementById('demoFilters').innerHTML=demos.map((d,i)=>
+    `<button class="filter-btn ${i===0?'active':''}" onclick="filterDemo(this,'${d}')">${d}</button>`
+  ).join('');
+}
+
+function showPage(page) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a=>{a.classList.toggle('active',a.dataset.page===page)});
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+let dark=false;
+function toggleTheme() {
+  dark=!dark;
+  document.documentElement.setAttribute('data-theme',dark?'dark':'');
+  document.querySelector('.theme-toggle').textContent=dark?'☀️':'🌙';
+}
+
+function toggleMobile(){document.getElementById('mobileMenu').classList.toggle('open')}
+
+function filterCategory(btn,cat) {
+  document.querySelectorAll('#categoryFilters .filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#allProducts .product-card').forEach(c=>{c.style.display=(cat==='All'||c.dataset.category===cat)?'':'none'});
+}
+function filterDemo(btn,demo) {
+  document.querySelectorAll('#demoFilters .filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#allInfluencers .influencer-card').forEach(c=>{c.style.display=(demo==='All'||c.dataset.demo===demo)?'':'none'});
+}
+function filterProducts() {
+  const q=document.getElementById('productSearch').value.toLowerCase();
+  document.querySelectorAll('#allProducts .product-card').forEach(c=>{c.style.display=c.textContent.toLowerCase().includes(q)?'':'none'});
+}
+
+const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.1});
+document.addEventListener('DOMContentLoaded',()=>{init();document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el))});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeVideo()});
+</script>
+</body>
+</html>
